@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("hello")
+	//path, err := filepath.Abs("./")
+	//fmt.Println(path, "path")
+	//fmt.Println(err)
+
+	//fmt.Println(path, err, "-----")
+
+	path, err := os.Getwd()
+	fmt.Println(path, err)
 }
