@@ -17,8 +17,25 @@ message UserResponse {
   bool gender = 3;
 }
 
+message UserRequest{
+  // 生名
+  string name = 1;
+  // 密码
+  string password = 2;
+  // 手机号
+  string mobile = 3;
+}
+
+message UserOkResponse{
+  string message = 1;
+}
+
+//goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=.
 
 service User {
+  // createUser创建用户
+  rpc createUser(UserRequest) returns(UserOkResponse);
+  // getUserInfo获取用户信息
   rpc getUserInfo(IdRequest) returns(UserResponse);
 }
 
