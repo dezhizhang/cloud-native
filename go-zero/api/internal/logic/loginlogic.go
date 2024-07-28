@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"go-zero/user/userclient"
 
 	"go-zero/api/internal/svc"
 	"go-zero/api/internal/types"
@@ -24,13 +23,10 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 	}
 }
 
-func (l *LoginLogic) Login(req *types.Request) (resp *types.Response, err error) {
-	// todo: add your logic here and delete this line
-	info, err := l.svcCtx.User.GetUserInfo(l.ctx, &userclient.IdRequest{
-		Id: "123",
-	})
-	if err != nil {
-		panic(err)
-	}
-	return &types.Response{Id: info.Id, Name: info.Name, Gender: info.Gender}, nil
+// Login 用户登录
+func (l *LoginLogic) Login(req *types.URequest) (resp *types.ULoginResponse, err error) {
+	return &types.ULoginResponse{
+		Token:   "xiaozhi",
+		Message: "登录成功",
+	}, nil
 }

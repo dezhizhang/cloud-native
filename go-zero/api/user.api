@@ -1,17 +1,31 @@
 syntax = "v1"
 
-type Response {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Gender bool   `json:"gender"`
+type URequest {
+	id string `json:"id"`
 }
 
-type Request {
-	id string `json:"id"`
+type ULoginResponse {
+	Token   string `json:"token"`
+	Message string `json:"message"`
+}
+
+type UInfoResponse {
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Mobile string `json:"mobile"`
+	Gender string `json:"gender"`
 }
 
 service user {
 	@handler LoginHandler
-	get /user/login (Request) returns (Response)
+	post /user/login (URequest) returns (ULoginResponse)
+}
+
+@server (
+	middleware: LoginVerification
+)
+service user {
+	@handler GetUserInfoHandler
+	get /user/info (URequest) returns (UInfoResponse)
 }
 
