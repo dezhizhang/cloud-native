@@ -8,7 +8,7 @@ import (
 
 	"go-zero/user/internal/logic"
 	"go-zero/user/internal/svc"
-	"go-zero/user/pb/user"
+	"go-zero/user/user"
 )
 
 type UserServer struct {

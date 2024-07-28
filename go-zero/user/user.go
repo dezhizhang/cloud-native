@@ -7,7 +7,7 @@ import (
 	"go-zero/user/internal/config"
 	"go-zero/user/internal/server"
 	"go-zero/user/internal/svc"
-	"go-zero/user/pb/user"
+	"go-zero/user/user"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"

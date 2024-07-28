@@ -1,0 +1,17 @@
+syntax = "v1"
+
+type Response {
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Gender bool   `json:"gender"`
+}
+
+type Request {
+	id string `json:"id"`
+}
+
+service user {
+	@handler LoginHandler
+	get /user/login (Request) returns (Response)
+}
+

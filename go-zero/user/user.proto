@@ -14,7 +14,7 @@ message UserResponse {
   // 用户名
   string name = 2;
   // 性别
-  bool  gender = 3;
+  bool gender = 3;
 }
 
 
