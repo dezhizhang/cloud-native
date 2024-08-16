@@ -15,6 +15,6 @@ func init() {
 }
 
 func (*RouterUser) Route(r *gin.Engine) {
-	h := &HandlerUser{}
+	h := New()
 	r.POST("/api/v1/login/captcha", h.GetCaptcha)
 }
