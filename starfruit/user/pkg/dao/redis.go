@@ -3,6 +3,7 @@ package dao
 import (
 	"context"
 	"github.com/redis/go-redis/v9"
+	"starfruit.top/user/config"
 	"time"
 )
 
@@ -13,12 +14,7 @@ type RedisCache struct {
 }
 
 func init() {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       0,
-	})
-
+	rdb := redis.NewClient(config.AppConfig.ReadRedisConfig())
 	RC = &RedisCache{rdb: rdb}
 
 }
