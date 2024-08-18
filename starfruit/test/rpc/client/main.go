@@ -1,21 +1,24 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/kirinlabs/HttpRequest"
+	"net/rpc"
 )
 
-type ResponseData struct {
-	Data int `json:"data"`
-}
-
 func main() {
-	req := HttpRequest.NewRequest()
-	rsp, _ := req.Get("http://127.0.0.1:8080/add?a=1&b=2")
-	body, _ := rsp.Body()
+	// 建立链接
+	conn, err := rpc.Dial("tcp", ":1234")
+	if err != nil {
+		panic("链接失败")
+	}
 
-	rspDta := ResponseData{}
-	_ = json.Unmarshal(body, &rspDta)
-	fmt.Println("-----", rspDta)
+	var reply string
+
+	err = conn.Call("HelloService.Hello", "world", &reply)
+	if err != nil {
+		panic("调用失败")
+	}
+
+	fmt.Println(reply)
+
 }

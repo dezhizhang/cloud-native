@@ -1,21 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"strconv"
+	"net"
+	"net/rpc"
 )
 
+type HelloService struct{}
+
+func (s *HelloService) Hello(request string, reply *string) error {
+	*reply = "hello " + request
+	return nil
+}
+
 func main() {
-	http.HandleFunc("/add", func(w http.ResponseWriter, r *http.Request) {
-		_ = r.ParseForm()
-		fmt.Println("path:", r.URL.Path)
+	//1. 实例化server
+	listen, _ := net.Listen("tcp", ":1234")
 
-		a, _ := strconv.Atoi(r.Form.Get("a"))
-		b, _ := strconv.Atoi(r.Form.Get("b"))
-
-		w.Header().Set("content-type", "application/json")
-		_, _ = w.Write([]byte(fmt.Sprintf("%d", a+b)))
-	})
-	_ = http.ListenAndServe(":8080", nil)
+	//2.注册服务名称
+	_ = rpc.RegisterName("HelloService", &HelloService{})
+	//3.启动服务
+	conn, _ := listen.Accept()
+	rpc.ServeConn(conn)
 }
