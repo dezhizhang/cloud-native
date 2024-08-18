@@ -13,8 +13,9 @@ func main() {
 
 		a, _ := strconv.Atoi(r.Form.Get("a"))
 		b, _ := strconv.Atoi(r.Form.Get("b"))
+
 		w.Header().Set("content-type", "application/json")
-		_, _ = w.Write([]byte(fmt.Sprintf(`{"a": %d, "b": %d}`, a, b)))
+		_, _ = w.Write([]byte(fmt.Sprintf("%d", a+b)))
 	})
 	_ = http.ListenAndServe(":8080", nil)
 }
