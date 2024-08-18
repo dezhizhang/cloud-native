@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
 )
 
 // Router 接口
@@ -29,8 +30,18 @@ func Register(router ...Router) {
 }
 
 func InitRouter(r *gin.Engine) {
-
 	for _, router := range routers {
 		router.Route(r)
 	}
+}
+
+// GrpcConfig grpc配置
+type GrpcConfig struct {
+	Addr         string
+	RegisterFunc func(server *grpc.Server)
+}
+
+// RegisterGrpc 注册gpc
+func RegisterGrpc() {
+
 }

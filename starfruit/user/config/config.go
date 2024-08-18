@@ -11,10 +11,17 @@ var AppConfig = InitConfig()
 type Config struct {
 	viper *viper.Viper
 	SC    *ServerConfig
+	GC    *GrpcConfig
 }
 
 // ServerConfig 服务配置
 type ServerConfig struct {
+	Name string
+	Addr string
+}
+
+// GrpcConfig Grpc配置
+type GrpcConfig struct {
 	Name string
 	Addr string
 }
@@ -58,4 +65,12 @@ func (c *Config) ReadRedisConfig() *redis.Options {
 		Password: c.viper.GetString("redis.password"),
 		DB:       c.viper.GetInt("redis.db"),
 	}
+}
+
+// ReadGrpcConfig 读取grpc
+func (c *Config) ReadGrpcConfig() {
+	gc := &GrpcConfig{}
+	gc.Name = c.viper.GetString("grpc.name")
+	gc.Addr = c.viper.GetString("grpc.addr")
+	c.GC = gc
 }
