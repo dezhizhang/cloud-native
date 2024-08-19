@@ -12,21 +12,20 @@ type Server struct {
 }
 
 // SayHello rpc服务调用
-func (s *Server) SayHello(ctx context.Context, req *proto.HelloRequest) (*proto.HelloReply, error) {
-	return &proto.HelloReply{Message: req.Name + "hello"}, nil
+func (c *Server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloReply, error) {
+	return &proto.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
 func main() {
 	//1. 实例化grpc
 	g := grpc.NewServer()
-	// 注册服务
+	//2. 注册服务
 	proto.RegisterGreeterServer(g, &Server{})
-	// 启动服务
+	// 3.启动服务
 	l, err := net.Listen("tcp", ":8080")
 	if err != nil {
-		panic("启动服务失败" + err.Error())
+		panic(err)
 	}
-
 	err = g.Serve(l)
 	if err != nil {
 		panic(err)
