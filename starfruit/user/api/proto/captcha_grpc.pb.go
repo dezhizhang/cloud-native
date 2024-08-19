@@ -22,7 +22,7 @@ const (
 	CaptchaService_GetCaptcha_FullMethodName = "/proto.CaptchaService/GetCaptcha"
 )
 
-// CaptchaServiceClient is the client API for CaptchaService service.
+// CaptchaServiceClient is the client API for CaptchaService server.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CaptchaServiceClient interface {
@@ -47,7 +47,7 @@ func (c *captchaServiceClient) GetCaptcha(ctx context.Context, in *CaptchaReques
 	return out, nil
 }
 
-// CaptchaServiceServer is the server API for CaptchaService service.
+// CaptchaServiceServer is the server API for CaptchaService server.
 // All implementations must embed UnimplementedCaptchaServiceServer
 // for forward compatibility
 type CaptchaServiceServer interface {
@@ -64,7 +64,7 @@ func (UnimplementedCaptchaServiceServer) GetCaptcha(context.Context, *CaptchaReq
 }
 func (UnimplementedCaptchaServiceServer) mustEmbedUnimplementedCaptchaServiceServer() {}
 
-// UnsafeCaptchaServiceServer may be embedded to opt out of forward compatibility for this service.
+// UnsafeCaptchaServiceServer may be embedded to opt out of forward compatibility for this server.
 // Use of this interface is not recommended, as added methods to CaptchaServiceServer will
 // result in compilation errors.
 type UnsafeCaptchaServiceServer interface {
@@ -93,7 +93,7 @@ func _CaptchaService_GetCaptcha_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-// CaptchaService_ServiceDesc is the grpc.ServiceDesc for CaptchaService service.
+// CaptchaService_ServiceDesc is the grpc.ServiceDesc for CaptchaService server.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CaptchaService_ServiceDesc = grpc.ServiceDesc{
