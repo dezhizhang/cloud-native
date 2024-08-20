@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 option  go_package = ".;proto";
-import "google/protobuf/timestamp.proto";
 import "common.proto";
 
 enum Gender{
@@ -13,7 +12,6 @@ message HelloRequest{
   string name = 1;
   Gender g = 2;
   map<string,string> mp = 3;
-  google.protobuf.Timestamp createTime = 4;
 }
 
 message Result {

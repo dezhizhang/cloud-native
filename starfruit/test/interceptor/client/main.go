@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
-	"starfruit.top/test/grpcstream/proto"
+	"starfruit.top/test/grpctest/proto"
 )
 
 func main() {
@@ -15,11 +15,11 @@ func main() {
 	defer conn.Close()
 
 	c := proto.NewGreeterClient(conn)
-	s, err := c.GetStream(context.Background(), &proto.StreamReqData{
-		Data: "hello world",
+	h, err := c.SayHello(context.Background(), &proto.HelloRequest{
+		Name: "tom",
 	})
-	for {
-		r, _ := s.Recv()
-		fmt.Println("recv:", r.Data)
+	if err != nil {
+		panic(err)
 	}
+	fmt.Println(h.Message)
 }
