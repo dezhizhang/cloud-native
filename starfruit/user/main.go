@@ -1,10 +1,10 @@
 package main
 
 import (
-	"starfruit.top/user/driver"
-	"starfruit.top/user/model"
+	"fmt"
+	"starfruit.top/user/utils"
 )
 
 func main() {
-	driver.DB.Create(&model.User{})
+	fmt.Println(utils.GenMd5("123456"))
 }
