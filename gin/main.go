@@ -2,20 +2,19 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-func handleGetInfo(c *gin.Context) {
-	id := c.Param("id")
-	action := c.Param("action")
-	c.JSON(http.StatusOK, gin.H{
-		"id":     id,
-		"action": action,
+func handlePostParams(c *gin.Context) {
+	name := c.PostForm("name")
+	age := c.PostForm("age")
+	c.JSON(200, gin.H{
+		"name": name,
+		"age":  age,
 	})
 }
 
 func main() {
 	r := gin.Default()
-	r.GET("/info/:id/:action", handleGetInfo)
+	r.POST("/post-params", handlePostParams)
 	_ = r.Run(":8080")
 }
