@@ -1,4 +1,4 @@
-package main
+package examples
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-type User struct {
+type UserForm struct {
 	Name     string `form:"name" binding:"required,min=2,max=20"`
 	Password string `form:"password" binding:"required,min=8,max=20"`
 }
@@ -46,8 +46,8 @@ func translation(locale string) (err error) {
 
 }
 
-func handleLogin(c *gin.Context) {
-	var user User
+func handleLoginZh(c *gin.Context) {
+	var user UserForm
 	if err := c.ShouldBind(&user); err != nil {
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
@@ -66,6 +66,6 @@ func main() {
 		fmt.Println(err)
 	}
 	r := gin.Default()
-	r.POST("/login", handleLogin)
+	r.POST("/login", handleLoginZh)
 	_ = r.Run(":8080")
 }
