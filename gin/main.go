@@ -1,11 +1,14 @@
 package main
 
 import (
-	"gin/middleware"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
-func handleUserInfo(c *gin.Context) {
+func handleExit(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code": 200,
 		"name": "tom",
@@ -14,10 +17,17 @@ func handleUserInfo(c *gin.Context) {
 
 func main() {
 	r := gin.Default()
-	v1 := r.Group("/api/v1").Use(middleware.Logger())
-	{
-		v1.GET("/info", handleUserInfo)
-	}
+	r.GET("/", handleExit)
 
-	_ = r.Run(":8080")
+	go func() {
+		_ = r.Run(":8080")
+	}()
+
+	// 接收信号
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	fmt.Println("服务关闭中....")
+
 }
