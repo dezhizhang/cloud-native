@@ -8,6 +8,7 @@ import (
 	"starfruit.top/user/model"
 	"starfruit.top/user/proto"
 	"starfruit.top/user/utils"
+	"time"
 )
 
 type UserService struct {
@@ -76,6 +77,31 @@ func (u *UserService) CreateUser(ctx context.Context, req *proto.CreateRequest) 
 	// 创建成功后返回用户信息
 	rsp := modelToProtoResponse(user)
 	return &rsp, nil
+}
+
+// UpdateUser 更新用户
+func (u *UserService) UpdateUser(ctx context.Context, req *proto.UpdateRequest) (*proto.UpdateResponse, error) {
+	var user model.User
+	err := driver.DB.Where("id = ?", req.Id).First(&user).Error
+	if err != nil {
+		return nil, status.Error(codes.NotFound, "用户不存在")
+	}
+
+	// 转换时间类型
+	birthDay := time.Unix(int64(req.BirthDay), 0)
+	user = model.User{
+		Username: req.Username,
+		Mobile:   req.Mobile,
+		Gender:   req.Gender,
+		Role:     int(req.Role),
+		BirthDay: &birthDay,
+	}
+	// 保存数据
+	err = driver.DB.Save(&user).Error
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &proto.UpdateResponse{Updated: true}, nil
 }
 
 // GetUserList 获取用户列表
