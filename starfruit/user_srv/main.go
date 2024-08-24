@@ -3,11 +3,12 @@ package main
 import (
 	"google.golang.org/grpc"
 	"net"
-	"starfruit.top/user/handler"
-	"starfruit.top/user/proto"
+	"starfruit.top/user_srv/handler"
+	"starfruit.top/user_srv/proto"
 )
 
 func main() {
+
 	server := grpc.NewServer()
 	// 注册服务
 	proto.RegisterUserServer(server, &handler.UserService{})

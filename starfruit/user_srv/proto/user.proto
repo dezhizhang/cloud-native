@@ -44,8 +44,7 @@ message UpdateRequest{
   string username = 2;
   string mobile = 3;
   string gender = 4;
-  uint64 birthDay = 5;
-  uint32 role = 6;
+  uint32 role = 5;
 }
 
 // 更新用户

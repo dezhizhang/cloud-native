@@ -3,7 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"starfruit.top/user/global"
+	"starfruit.top/user_srv/global"
 )
 
 // GenMd5 生成md5编码
