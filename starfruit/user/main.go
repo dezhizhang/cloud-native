@@ -1,10 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"starfruit.top/user/utils"
+	"google.golang.org/grpc"
+	"net"
+	"starfruit.top/user/handler"
+	"starfruit.top/user/proto"
 )
 
 func main() {
-	fmt.Println(utils.GenMd5("123456"))
+	server := grpc.NewServer()
+	// 注册服务
+	proto.RegisterUserServer(server, &handler.UserService{})
+	// 启动服务
+	listen, err := net.Listen("tcp", ":8888")
+	if err != nil {
+		panic(err)
+	}
+
+	err = server.Serve(listen)
+	if err != nil {
+		panic(err)
+	}
 }

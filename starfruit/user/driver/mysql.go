@@ -3,10 +3,9 @@ package driver
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"starfruit.top/user/global"
 	"starfruit.top/user/model"
 )
-
-var DB *gorm.DB
 
 func init() {
 	dsn := "root:12345678@tcp(127.0.0.1:3306)/starfruit?charset=utf8mb4&parseTime=True&loc=Local"
@@ -19,5 +18,5 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	DB = db
+	global.DB = db
 }
