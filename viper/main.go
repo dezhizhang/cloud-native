@@ -5,12 +5,20 @@ import (
 	"github.com/spf13/viper"
 )
 
-func main() {
+type ServerConfig struct {
+	Name string `mapstructure:"name" json:"name"`
+}
 
+func main() {
+	var serverConfig ServerConfig
 	v := viper.New()
 	v.SetConfigFile("./config/config.yaml")
 	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}
-	fmt.Println(v.Get("name"))
+	err := v.Unmarshal(&serverConfig)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(serverConfig.Name)
 }
