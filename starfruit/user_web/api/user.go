@@ -10,7 +10,7 @@ import (
 	"starfruit.top/user_web/proto"
 )
 
-// 将grpc转换成http
+// 将grpc错误转换成http错误
 func handlerGrpcErrorToHttp(c *gin.Context, err error) {
 	if err != nil {
 		if e, ok := status.FromError(err); ok {
@@ -29,9 +29,7 @@ func handlerGrpcErrorToHttp(c *gin.Context, err error) {
 				c.JSON(http.StatusInternalServerError, gin.H{
 					"message": "其它错训",
 				})
-
 			}
-
 		}
 	}
 }
